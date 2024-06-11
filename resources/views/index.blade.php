@@ -17,8 +17,8 @@
                 <th>Aksi</th>
             </tr>
         </thead>
-        @foreach ($siswas as $siswa)
-            <tbody>
+        <tbody>
+            @foreach ($siswas as $siswa)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $siswa->nama }}</td>
@@ -37,7 +37,7 @@
                         </form>
                     </td>
                 </tr>
-            </tbody>
-        @endforeach
+            @endforeach
+        </tbody>
     </table>
 @endsection
