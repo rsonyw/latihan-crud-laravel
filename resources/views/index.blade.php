@@ -4,7 +4,7 @@
     <h1>Selamat Datang di Aplikasi CRUD Sederhana Laravel!</h1>
     <hr>
     <a href="/crud/create" class="btn btn-primary btn-sm mb-3">Tambah Data</a href="/buyer">
-    <table id="myTable" class="table table-bordered">
+    <table id="myTable" class="display">
         <thead>
             <tr>
                 <th>No</th>
@@ -17,10 +17,10 @@
                 <th>Aksi</th>
             </tr>
         </thead>
-        @foreach ($siswas as $key => $siswa)
+        @foreach ($siswas as $siswa)
             <tbody>
                 <tr>
-                    <td>{{ ++$key }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $siswa->nama }}</td>
                     <td>{{ $siswa->kelas }}</td>
                     <td>{{ $siswa->nis }}</td>

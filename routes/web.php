@@ -19,3 +19,4 @@ use App\Http\Controllers\SiswaController;
 // });
 
 Route::resource('/crud', SiswaController::class);
+Route::resource('/', SiswaController::class);
