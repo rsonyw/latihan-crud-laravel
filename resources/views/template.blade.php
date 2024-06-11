@@ -29,6 +29,22 @@
             console.log('Search event triggered');
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.btndelete').click(function() {
+                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                    var deleteForm = $(this).closest('form');
+                    deleteForm.submit();
+                } else {
+                    return false;
+                }
+
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

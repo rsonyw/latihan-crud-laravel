@@ -33,7 +33,8 @@
                         <form action="/crud/{{ $siswa->id }}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
-                            <button href="/crud/{{ $siswa->id }}/delete" class="btn btn-danger btn-sm">Delete</button>
+                            <button href="/crud/{{ $siswa->id }}/delete"
+                                class="btndelete btn-danger btn-sm">Delete</button>
                         </form>
                     </td>
                 </tr>
