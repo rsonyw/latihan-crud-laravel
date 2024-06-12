@@ -6,7 +6,7 @@
     <a href="/crud" class="btn btn-primary btn-sm mb-3">Kembali</a>
     <table class="table table-bordered">
         <tr>
-            <th>No</th>
+            <th>Id</th>
             <td>{{ $siswa->id }}</td>
         </tr>
 

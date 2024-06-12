@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
 
 /*
@@ -20,3 +21,5 @@ use App\Http\Controllers\SiswaController;
 
 Route::resource('/crud', SiswaController::class);
 Route::resource('/', SiswaController::class);
+Route::resource('/mapel', MapelController::class);
+Route::post('/mapel/data', [MapelController::class, 'data'])->name('mapel.data');
