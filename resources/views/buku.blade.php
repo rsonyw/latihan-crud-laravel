@@ -9,8 +9,6 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
     <title>Belajar DataTables Laravel</title>
 </head>
 
@@ -57,7 +55,7 @@
         </div>
         <div class="container">
 
-            @yield('content')
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"

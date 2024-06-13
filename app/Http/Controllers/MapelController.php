@@ -21,7 +21,7 @@ class MapelController extends Controller
         $columns = ['id', 'kodemapel', 'namamapel', 'namaguru', 'jk', 'nip'];
 
         $totalData = Mapel::count();
-        $totalFiltered = $totalData;
+
 
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -36,7 +36,25 @@ class MapelController extends Controller
             $order = 'created_at';
         }
 
-        $mapels = Mapel::offset($start)
+        $searchValue = $request->input('search.value');
+
+        // Query awal
+        $query = Mapel::query();
+
+        // Jika ada nilai pencarian, tambahkan kondisi pencarian
+        if (!empty($searchValue)) {
+            $query->where(function ($q) use ($searchValue) {
+                $q->where('kodemapel', 'like', "%{$searchValue}%")
+                    ->orWhere('namamapel', 'like', "%{$searchValue}%")
+                    ->orWhere('namaguru', 'like', "%{$searchValue}%")
+                    ->orWhere('jk', 'like', "%{$searchValue}%")
+                    ->orWhere('nip', 'like', "%{$searchValue}%");
+            });
+        }
+
+        $totalFiltered = $query->count();
+
+        $mapels = $query->offset($start)
             ->limit($limit)
             ->orderBy($order, $dir)
             ->get();
