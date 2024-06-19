@@ -5,9 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
+
+
 
     <title>Belajar DataTables Laravel</title>
 </head>
@@ -42,8 +45,8 @@
                     </a>
                 </li>
                 <br>
-                <li class="nav-item {{ Request::is('mapel') ? 'active' : '' }}">
-                    <a href="#" class="nav-link text-white">
+                <li class="nav-item {{ Request::is('buku') ? 'active' : '' }}">
+                    <a href="/buku" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#speedometer2" />
                         </svg>
@@ -55,102 +58,98 @@
         </div>
         <div class="container">
 
+            <h1>Selamat Datang di Pembelajaran DataTables Laravel!</h1>
+            <hr>
+            <a href="/buku/create" class="btn btn-primary btn-sm mb-3">Tambah Data</a href="/buyer">
+            <table id="yajraTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kode Buku</th>
+                        <th>Judul Buku</th>
+                        <th>Penulis</th>
+                        <th>Tahun Terbit</th>
+                        <th>Penerbit</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
         </div>
+    </div>
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-        <script>
-            $(document).ready(function() {
-                $('#myTable').DataTable();
-            });
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.0.8/datatables.min.js"></script>
 
-            $(document).ready(function() {
-                $('#mapelTable').DataTable({ // Inisialisasi DataTables pada tabel dengan id 'mapelTable'
-                    "processing": true, // Menampilkan indikator pemrosesan
-                    "serverSide": true, // Mengaktifkan pemrosesan server-side
-                    "ajax": { // Konfigurasi AJAX untuk pengambilan data dari server
-                        "url": "{{ route('mapel.data') }}", // URL untuk mengakses data
-                        "type": "POST", // Metode HTTP untuk permintaan AJAX
-                        "data": function(d) { // Menambahkan data tambahan pada permintaan AJAX
-                            d._token =
-                                "{{ csrf_token() }}"; // Menambahkan CSRF token untuk keamanan Laravel
-                        }
-                    },
-                    // Definisi kolom-kolom yang ada di DataTables dan sumber datanya
-                    "columns": [{
-                            "data": "urutan",
-                            "name": "urutan",
-                            "searchable": false,
-                            "orderable": true,
-                            "render": function(data, type, full, meta) {
-                                return meta.row + 1; // Nomor urut dimulai dari 1
-                            }
-                        },
-                        {
-                            "data": "kodemapel"
-                        },
-                        {
-                            "data": "namamapel"
-                        },
-                        {
-                            "data": "namaguru"
-                        },
-                        {
-                            "data": "jk"
-                        },
-                        {
-                            "data": "nip"
-                        },
-                        {
-                            "data": null, //untuk menambahkan kolom 'aksi'
-                            "render": function(data, type, row) {
-                                return '<a href="/mapel/' + row.id +
-                                    '" class="btn btn-sm btn-info">Detail</a> <a href="/mapel/' +
-                                    row
-                                    .id +
-                                    '/edit" class="btn btn-sm btn-primary">Edit</a><button class="btn btn-sm btn-danger" onclick="deleteFunction(' +
-                                    row.id + ')">Delete</button>';
-                            }
-                        }
-                    ]
-                });
-            });
-
-            $(document).ready(function() {
-                $('.btndelete').click(function() {
-                    if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                        var deleteForm = $(this).closest('form');
-                        deleteForm.submit();
-                    } else {
-                        return false;
+    <script>
+        $(document).ready(function() {
+            $('#yajraTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "{{ route('buku.data') }}", // URL untuk mengakses data
+                    "type": "GET", // Metode HTTP untuk permintaan AJAX
+                    "data": function(d) { // Menambahkan data tambahan pada permintaan AJAX
+                        d._token =
+                            "{{ csrf_token() }}"; // Menambahkan CSRF token untuk keamanan Laravel
                     }
-                });
+                },
+                columns: [{
+                        "data": 'id'
+                    },
+                    {
+                        "data": 'kodebuku'
+                    },
+                    {
+                        "data": 'namabuku'
+                    },
+                    {
+                        "data": 'penulis'
+                    },
+                    {
+                        "data": 'tahunterbit'
+                    },
+                    {
+                        "data": 'penerbit'
+                    },
+                    {
+                        "data": 'aksi'
+                    }
+                ],
             });
 
-            function deleteFunction(id) {
-                if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+            $('#yajraTable').on('click', '.delete', function() {
+                var id = $(this).data('id');
+                if (confirm('Apakah kamu yakin akan menghapus buku?')) {
                     $.ajax({
-                        url: '/mapel/' + id,
+                        url: '/buku/' + id,
                         type: 'POST',
                         data: {
                             _method: 'DELETE',
-                            _token: $('meta[name="csrf-token"]').attr('content')
+                            _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
-                            console.log("Data berhasil dihapus");
+                            alert(response.success);
                             window.location.reload();
                         },
-                        error: function(xhr, status, error) {
-                            console.error("Terjadi kesalahan:", error);
+                        error: function(xhr) {
+                            alert('Error deleting book.');
                         }
                     });
                 }
-            }
-        </script>
-
+            });
+        });
+    </script>
 
 </body>
 

@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('content')
-    <h1>Detail</h1>
+    <h1>Detail Buku</h1>
     <hr>
     <a href="/crud" class="btn btn-primary btn-sm mb-3">Kembali</a>
     <table class="table table-bordered">

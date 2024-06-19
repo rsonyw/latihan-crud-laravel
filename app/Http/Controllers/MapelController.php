@@ -22,7 +22,6 @@ class MapelController extends Controller
 
         $totalData = Mapel::count();
 
-
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column', 0)];
@@ -53,7 +52,6 @@ class MapelController extends Controller
         }
 
         $totalFiltered = $query->count();
-
         $mapels = $query->offset($start)
             ->limit($limit)
             ->orderBy($order, $dir)
@@ -141,6 +139,7 @@ class MapelController extends Controller
         ]);
         Mapel::where('id', $id)
             ->update($rules);
+        return redirect('/mapel')->with('success', 'Mapel berhasil diedit');
     }
 
     /**
@@ -149,6 +148,6 @@ class MapelController extends Controller
     public function destroy(string $id)
     {
         Mapel::destroy($id);
-        return redirect('/mapel');
+        return redirect('/mapel')->with('success', 'Mapel berhasil dihapus');
     }
 }

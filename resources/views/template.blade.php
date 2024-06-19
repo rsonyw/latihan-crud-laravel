@@ -44,8 +44,8 @@
                     </a>
                 </li>
                 <br>
-                <li class="nav-item {{ Request::is('mapel') ? 'active' : '' }}">
-                    <a href="#" class="nav-link text-white">
+                <li class="nav-item {{ Request::is('buku') ? 'active' : '' }}">
+                    <a href="/buku" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#speedometer2" />
                         </svg>
